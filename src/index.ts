@@ -20,6 +20,7 @@ type Result = {
  * @example
  * ```ts
  * const data = new FormData();
+ *
  * data.append('a', '0');
  * data.append('b.c[]', '1');
  * data.append('+b.c[]', '2');
@@ -27,6 +28,7 @@ type Result = {
  * data.append('e.0', '3');
  * data.append('e.1', '4');
  *
+ * parseFormData(data);
  * // => { a: '0', b: { c: ['1', 2], d: true }, e: ['3', '4'] }
  * ```
  *
@@ -34,7 +36,7 @@ type Result = {
  * @param options - Options for parsing the data:
  * - `omitEmptyStrings` - Exclude empty string values from the result.
  */
-export const dform = (
+export const parseFormData = (
   data: Iterable<[string, string | File]>,
   { omitEmptyStrings }: Options = {}
 ) => {

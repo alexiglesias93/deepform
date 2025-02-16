@@ -1,6 +1,6 @@
-# dform
+# deepform
 
-`dform` is a tiny wrapper around [dset](https://github.com/lukeed/dset) to parse `FormData` or `URLSearchParams` into a deeply nested object.
+`deepform` is a tiny wrapper around [dset](https://github.com/lukeed/dset) to parse `FormData` or `URLSearchParams` into a deeply nested object.
 
 ## Features
 
@@ -11,16 +11,16 @@
 
 ## Installation
 
-Install from [npm](https://www.npmjs.com/package/dform):
+Install from [npm](https://www.npmjs.com/package/deepform):
 
 ```sh
-npm install dform
+npm install deepform
 ```
 
 ## Usage
 
 ```ts
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const data = new FormData();
 
@@ -31,7 +31,7 @@ data.append('&b.d', 'on');
 data.append('e.0', '3');
 data.append('e.1', '4');
 
-const result = dform(data);
+const result = parseFormData(data);
 // {
 //   a: '0',
 //   b: {
@@ -44,7 +44,7 @@ const result = dform(data);
 
 ## Type casting
 
-`dform` will attempt to cast values based on the prefix of the key:
+`deepform` will attempt to cast values based on the prefix of the key:
 
 - `+` prefix will cast the value to a number.
 - `&` prefix will cast the value to a boolean. The following values will be cast to `true`:
@@ -53,14 +53,14 @@ const result = dform(data);
   - `'1'` (or any other non-zero number)
 
 ```ts
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const data = new FormData();
 
 data.append('+number', '42');
 data.append('checkbox', 'on');
 
-const result = dform(data);
+const result = parseFormData(data);
 // {
 //   number: 42,
 //   checkbox: true,
@@ -70,12 +70,12 @@ const result = dform(data);
 This is useful when parsing numeric inputs or checkboxes:
 
 ```jsx
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const MyForm = () => {
   const handleSubmit = (e) => {
     const formData = new FormData(e.target);
-    const parsedData = dform(formData);
+    const parsedData = parseFormData(formData);
     // {
     //   text: 'Hello, World!',
     //   number: 42,
@@ -110,10 +110,10 @@ export default MyForm;
 
 ## Array values
 
-`dform` supports arrays of values by using the `[]` suffix in the key:
+`deepform` supports arrays of values by using the `[]` suffix in the key:
 
 ```ts
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const data = new FormData();
 
@@ -121,7 +121,7 @@ data.append('a[]', '1');
 data.append('a[]', '2');
 data.append('a[]', '3');
 
-const result = dform(data);
+const result = parseFormData(data);
 // {
 //   a: ['1', '2', '3'],
 // };
@@ -130,14 +130,14 @@ const result = dform(data);
 This is useful when parsing multiple values from a single input or multiple inputs with the same name:
 
 ```jsx
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const MyForm = () => {
   const fruits = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
 
   const handleSubmit = (e) => {
     const formData = new FormData(e.target);
-    const parsedData = dform(formData);
+    const parsedData = parseFormData(formData);
     // {
     //   fruits: ['Apple', 'Cherry', 'Date'],
     // }
@@ -167,23 +167,23 @@ const MyForm = () => {
 - Type: `boolean`
 - Default: `false`
 
-When `true`, `dform` will omit empty string values from the result object.
+When `true`, `deepform` will omit empty string values from the result object.
 
 ```ts
-import { dform } from 'dform';
+import { parseFormData } from 'deepform';
 
 const data = new FormData();
 
 data.append('a', '');
 data.append('b', 'foo');
 
-const result = dform(data);
+const result = parseFormData(data);
 // {
 //   a: '',
 //   b: 'foo',
 // };
 
-const result2 = dform(data, { omitEmptyStrings: true });
+const result2 = parseFormData(data, { omitEmptyStrings: true });
 // {
 //   b: 'foo',
 // };
@@ -197,4 +197,4 @@ const result2 = dform(data, { omitEmptyStrings: true });
 
 ## License
 
-See [LICENSE](https://github.com/alexiglesias93/dform/blob/main/LICENSE).
+See [LICENSE](https://github.com/alexiglesias93/deepform/blob/main/LICENSE).

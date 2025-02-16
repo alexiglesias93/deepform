@@ -1,8 +1,8 @@
 import * as assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { dform } from './index.ts';
+import { parseFormData } from './index.ts';
 
-describe('dform', () => {
+describe('deepform', () => {
   describe('basic assignments', () => {
     it('top level assignments', () => {
       const data = new FormData();
@@ -11,7 +11,7 @@ describe('dform', () => {
       data.append('b', '2');
       data.append('c', '3');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: '1',
@@ -28,7 +28,7 @@ describe('dform', () => {
       data.append('a.d.0', '0');
       data.append('a.d.1', '1');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: {
@@ -46,7 +46,7 @@ describe('dform', () => {
       data.append('a[]', '2');
       data.append('a[]', '3');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: ['1', '2', '3'],
@@ -60,7 +60,7 @@ describe('dform', () => {
       data.append('a.b[]', '2');
       data.append('a.b[]', '3');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: {
@@ -76,7 +76,7 @@ describe('dform', () => {
       data.append('a.b[]', '2');
       data.append('a.c', '3');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: {
@@ -95,7 +95,7 @@ describe('dform', () => {
       data.append('+b', '2.2');
       data.append('+c', '3.33');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: 1,
@@ -112,7 +112,7 @@ describe('dform', () => {
       data.append('&c', 'on');
       data.append('&d', '0');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: true,
@@ -131,7 +131,7 @@ describe('dform', () => {
       data.append('+b', '2');
       data.append('&c', 'true');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: '1',
@@ -150,7 +150,7 @@ describe('dform', () => {
       data.append('&a.e.1', '1');
       data.append('+a.e.2', '2');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: {
@@ -169,7 +169,7 @@ describe('dform', () => {
       data.append('+a[]', '2');
       data.append('&a[]', 'true');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: ['1', 2, true],
@@ -185,7 +185,7 @@ describe('dform', () => {
       data.append('a.c.0[]', 'foo');
       data.append('a.c.0[]', 'bar');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: {
@@ -205,7 +205,7 @@ describe('dform', () => {
       data.append('e.0', '3');
       data.append('e.1', '4');
 
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: '0',
@@ -226,7 +226,7 @@ describe('dform', () => {
       data.append('b', '');
       data.append('c', '3');
 
-      const result = dform(data, { omitEmptyStrings: true });
+      const result = parseFormData(data, { omitEmptyStrings: true });
 
       assert.deepEqual(result, {
         a: '1',
@@ -238,7 +238,7 @@ describe('dform', () => {
   describe('URLSearchParams', () => {
     it('can parse URLSearchParams', () => {
       const data = new URLSearchParams('a=1&b=2&c=3');
-      const result = dform(data);
+      const result = parseFormData(data);
 
       assert.deepEqual(result, {
         a: '1',
