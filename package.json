@@ -1,18 +1,18 @@
 {
-  "name": "dform",
+  "name": "deepform",
   "version": "1.0.0",
   "description": "Parse FormData into deeply nested objects.",
   "author": {
     "name": "Alex Iglesias",
     "url": "https://alexiglesias.me"
   },
-  "homepage": "https://github.com/alexiglesias93/dform#readme",
+  "homepage": "https://github.com/alexiglesias93/deepform#readme",
   "bugs": {
-    "url": "https://github.com/alexiglesias93/dform/issues"
+    "url": "https://github.com/alexiglesias93/deepform/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexiglesias93/dform.git"
+    "url": "git+https://github.com/alexiglesias93/deepform.git"
   },
   "files": [
     "dist",
@@ -50,7 +50,7 @@
     "object",
     "array",
     "deep",
-    "dform",
+    "deepform",
     "dset"
   ],
   "scripts": {
