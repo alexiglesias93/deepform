@@ -194,3 +194,7 @@ const result2 = dform(data, { omitEmptyStrings: true });
 - [dset](https://github.com/lukeed/dset) - safely write into deep properties
 - [dlv](https://github.com/developit/dlv) - safely read from deep properties
 - [parse-nested-form-data](https://github.com/milamer/parse-nested-form-data) - the original inspiration for this package
+
+## License
+
+See [LICENSE](https://github.com/alexiglesias93/dform/blob/main/LICENSE).
