@@ -58,7 +58,7 @@ import { parseFormData } from 'deepform';
 const data = new FormData();
 
 data.append('+number', '42');
-data.append('checkbox', 'on');
+data.append('&checkbox', 'on');
 
 const result = parseFormData(data);
 // {
